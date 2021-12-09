@@ -30,6 +30,19 @@ struct ContentView: View {
     }
   }
   
+  func load() {
+    do {
+      // 1. Get the notes URL path
+      let url = getDocumentDirectory().appendingPathComponent("notes")
+      // 2. Create new property for data
+      let data = try Data(contentsOf: url)
+      // 3. Decode data
+      notes = try JSONDecoder().decode([Note].self, from: data)
+    } catch {
+      // Do nothing
+    }
+  }
+  
   var body: some View {
     VStack {
       HStack (alignment: .center, spacing: 6) {
