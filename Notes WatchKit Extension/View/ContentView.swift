@@ -45,6 +45,13 @@ struct ContentView: View {
     }
   }
   
+  func delete(offsets: IndexSet) {
+    withAnimation {
+      notes.remove(atOffsets: offsets)
+      save()
+    }
+  }
+  
   var body: some View {
     VStack {
       HStack (alignment: .center, spacing: 6) {
@@ -78,7 +85,8 @@ struct ContentView: View {
               .lineLimit(1)
               .padding(.leading, 5)
           } //: HStack
-        }
+        } //: ForEach
+        .onDelete(perform: delete)
       } //: List
     } //: VStack
     .navigationTitle("Notes")
